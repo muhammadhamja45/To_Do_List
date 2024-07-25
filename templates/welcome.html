@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Datang</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        .bg-primary {
+            background-color: #17153B;
+        }
+        .text-primary {
+            color: #17153B;
+        }
+        .bg-secondary {
+            background-color: #2E236C;
+        }
+        .bg-tertiary {
+            background-color: #433D8B;
+        }
+        .text-highlight {
+            color: #C8ACD6;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s;
+            z-index: 1;
+        }
+        .transparent-card {
+            background-color: rgba(248, 250, 252, 0.8); /* Same as bg-gray-100 with transparency */
+            backdrop-filter: blur(10px);
+        }
+        .card-divider {
+            border-left: 2px solid #fff;
+        }
+    </style>
+    <!-- Tambahkan link ke library typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+</head>
+<body class="bg-primary">
+
+    <!-- Navbar -->
+    <nav class="bg-primary shadow">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div>
+                    <a href="/" class="text-white text-xl font-bold md:text-2xl"><i class="fas fa-tasks"></i> To-Do List App</a>
+                </div>
+                <div>
+                    <a href="/auth/login" class="text-highlight hover:text-gray-300 mx-2"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="/auth/register" class="text-highlight hover:text-gray-300 mx-2"><i class="fas fa-user-plus"></i> Daftar</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Jumbotron -->
+    <div class="relative">
+        <div class="relative bg-primary  text-white py-20">
+            <div class="container mx-auto text-center text-dark">
+                <h1 class="text-3xl md:text-5xl font-bold">
+                    <span id="typed-text"></span>
+                </h1>
+                <p class="text-lg md:text-xl mt-4">Organisasi tugas Anda menjadi lebih mudah dan efisien.</p>
+            </div>
+        </div>
+    </div>
+
+  
+
+    <!-- Cards -->
+    <div class="container mx-auto  mt-0 flex flex-wrap">
+        <div class="w-full lg:w-1/3 p-4">
+            <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                <img src="{{ url_for('static', filename='images/image.png') }}" alt="Image 1" class="w-full h-48 object-cover rounded-t-lg">
+                <h2 class="text-xl md:text-2xl font-bold mt-4">Card 1</h2>
+                <p class="text-gray-600 mt-2">Deskripsi singkat tentang Card 1.</p>
+            </div>
+        </div>
+        <div class="w-full lg:w-2/3 flex flex-wrap">
+            <div class="w-full md:w-1/2 p-4">
+                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                    <img src="{{ url_for('static', filename='images/image.png') }}" alt="Image 2" class="w-full h-48 object-cover rounded-t-lg">
+                    <h2 class="text-xl md:text-2xl font-bold mt-4">Card 2</h2>
+                    <p class="text-gray-600 mt-2">Deskripsi singkat tentang Card 2.</p>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 p-4">
+                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                    <img src="{{ url_for('static', filename='images/image.png') }}" alt="Image 3" class="w-full h-48 object-cover rounded-t-lg">
+                    <h2 class="text-xl md:text-2xl font-bold mt-4">Card 3</h2>
+                    <p class="text-gray-600 mt-2">Deskripsi singkat tentang Card 3.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transparent Card -->
+    <div class="container mx-auto px-6 py-8 text-center text-white bg-primary">
+        <div class="w-full  p-4 mx-auto">
+            <div class=" rounded-lg p-6 flex">
+                <div class="w-1/2 p-4">
+                    <h2 class="text-xl md:text-2xl font-bold">Judul Penjelasan</h2>
+                    <p class="mt-2">Penjelasan singkat bagian kiri.</p>
+                </div>
+                <div class="card-divider"></div>
+                <div class="w-1/2 p-4">
+                    <h2 class="text-xl md:text-2xl font-bold">Judul Penjelasan</h2>
+                    <p class="mt-2">Penjelasan singkat bagian kanan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 To-Do List App. All rights reserved by.</p>
+            <div class="mt-4">
+                <a href="#" class="text-highlight hover:text-gray-300 mx-2">Privacy Policy</a>
+                <a href="#" class="text-highlight hover:text-gray-300 mx-2">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript untuk efek pengetikan -->
+    <script>
+        var options = {
+            strings: ["Selamat Datang di Website To-Do List", "Organisasi tugas Anda menjadi lebih mudah dan efisien"],
+            typeSpeed: 50,
+            backSpeed: 50,
+            loop: true
+        };
+
+        var typed = new Typed("#typed-text", options);
+    </script>
+
+</body>
+</html>

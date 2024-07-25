@@ -7,21 +7,38 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-md shadow-md w-96">
-        <h1 class="text-2xl font-bold mb-4">Login</h1>
-        <form action="{{ url_for('login') }}" method="post">
-            <div class="mb-4">
-                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input type="text" name="username" id="username" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" required>
-            </div>
-            <div class="mb-4">
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" name="password" id="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" required>
-            </div>
-            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md">Login</button>
-        </form>
-        <p class="mt-4 text-sm text-gray-600">Don't have an account? <a href="{{ url_for('register') }}" class="text-blue-500">Register</a></p>
+<body class="bg-purple-300 flex items-center justify-center min-h-screen">
+    <div class="bg-white flex flex-col md:flex-row md:w-2/3 shadow-md rounded-lg">
+        <div class="md:w-1/2 p-6 flex items-center justify-center bg-purple-500 rounded-t-lg md:rounded-t-none md:rounded-l-lg">
+            <img src="{{ url_for('static', filename='images/image.png') }}" alt="Illustration" class="max-w-full h-auto rounded">
+        </div>
+        <div class="md:w-1/2 p-8 bg-purple-100 rounded-b-lg md:rounded-b-none md:rounded-r-lg">
+            <h1 class="text-2xl font-bold mb-4 text-purple-700">Login</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mb-4">
+                        {% for category, message in messages %}
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                <strong class="font-bold">Error:</strong>
+                                <span class="block sm:inline">{{ message }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form action="{{ url_for('auth.login') }}" method="post">
+                <div class="mb-4">
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input type="text" name="username" id="username" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" name="password" id="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" required>
+                </div>
+                <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white py-2 rounded-md">Login</button>
+            </form>
+            <p class="mt-4 text-sm text-gray-600">Don't have an account? <a href="{{ url_for('auth.register') }}" class="text-purple-500">Register</a></p>
+        </div>
     </div>
 </body>
 </html>
