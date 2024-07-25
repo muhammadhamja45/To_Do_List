@@ -4,13 +4,15 @@ from flask_login import UserMixin
 db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'users'  # tambahkan ini untuk mencocokkan nama tabel
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+
 
 class Task(db.Model):
-    __tablename__ = 'tasks'
+    __tablename__ = 'tasks'  # tambahkan ini untuk mencocokkan nama tabel
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     task_name = db.Column(db.String(255), nullable=False)

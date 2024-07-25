@@ -1,71 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To-Do List</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Drawer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .bg-primary {
+            background-color: #694F8E;
+        }
+        .bg-secondary {
+            background-color: #E3A5C7;
+        }
+        .bg-accent {
+            background-color: #B692C2;
+        }
+        .bg-light {
+            background-color: #FFDFD6;
+        }
+        .text-primary {
+            color: #694F8E;
+        }
+        .text-secondary {
+            color: #E3A5C7;
+        }
+        .text-accent {
+            color: #B692C2;
+        }
+        .text-light {
+            color: #FFDFD6;
+        }
+        .dark-mode .bg-primary {
+            background-color: #17153B;
+        }
+        .dark-mode .bg-secondary {
+            background-color: #2E236C;
+        }
+        .dark-mode .bg-accent {
+            background-color: #433D8B;
+        }
+        .dark-mode .bg-light {
+            background-color: #C8ACD6;
+        }
+        .dark-mode .text-primary {
+            color: #17153B;
+        }
+        .dark-mode .text-secondary {
+            color: #2E236C;
+        }
+        .dark-mode .text-accent {
+            color: #433D8B;
+        }
+        .dark-mode .text-light {
+            color: #C8ACD6;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-<div class="min-h-screen flex flex-col">
-    <div class="flex flex-row flex-grow">
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <div class="h-screen flex overflow-hidden bg-gray-200">
         <!-- Sidebar -->
-        <div class="bg-black text-white w-64 p-4">
-            <div class="flex justify-between mb-4">
-                <h2 class="text-2xl font-bold">Todos</h2>
-                <a href="{{ url_for('logout') }}" class="text-red-500">Logout</a>
-            </div>
-            <div class="mb-4">
-                <button id="add-task-button" class="bg-gray-800 px-4 py-2 rounded-md w-full">+ Add Task</button>
-            </div>
-            <form id="add-task-form" action="{{ url_for('add_task') }}" method="post" class="hidden mb-4">
-                <input type="text" name="task_name" placeholder="Task Name" class="mb-2 p-2 rounded w-full text-black" />
-                <input type="date" name="task_date" class="mb-2 p-2 rounded w-full text-black" />
-                <input type="time" name="start_time" class="mb-2 p-2 rounded w-full text-black" />
-                <input type="time" name="end_time" class="mb-2 p-2 rounded w-full text-black" />
-                <button type="submit" class="bg-green-500 px-4 py-2 rounded-md w-full text-white">Add Task</button>
-            </form>
-            <div id="task-list">
-                <!-- Task list will be loaded here from the database -->
+        <div class="absolute bg-primary text-white w-56 min-h-screen overflow-y-auto transition-transform transform -translate-x-full ease-in-out duration-300 dark:bg-primary"
+            id="sidebar">
+            <!-- Sidebar Content -->
+            <div class="p-4">
+                <h1 class="text-2xl font-semibold">Todos</h1>
+                <button id="dark-mode-toggle" class="mt-4 mb-2 px-3 py-1 rounded-md bg-secondary text-white w-full">
+                    <i id="dark-mode-icon" class="fas fa-moon"></i> Toggle Dark Mode
+                </button>
+                <div class="flex items-center space-x-2 mt-4">
+                    <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-full">
+                    <span>{{ current_user.username }}</span>
+                </div>
+                <a href="{{ url_for('logout') }}" class="block text-white hover:text-light mt-4 flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </a>
+                <ul class="mt-4">
+                    <li class="mb-2"><a href="#" class="block hover:text-accent">Home</a></li>
+                    <li class="mb-2"><a href="#" class="block hover:text-accent">About</a></li>
+                    <li class="mb-2"><a href="#" class="block hover:text-accent">Services</a></li>
+                    <li class="mb-2"><a href="#" class="block hover:text-accent">Contact</a></li>
+                </ul>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="flex-grow p-6">
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center">
-                    <h1 class="text-3xl font-bold" id="month-year">March 2022</h1>
-                    <button id="prev-week" class="ml-2 bg-gray-200 px-3 py-1 rounded-md">←</button>
-                    <button id="next-week" class="ml-2 bg-gray-200 px-3 py-1 rounded-md">→</button>
+        <!-- Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Navbar -->
+            <div class="bg-primary text-white p-4 flex justify-between items-center flex-wrap">
+                <div class="flex items-center space-x-2">
+                    <h2 class="text-2xl font-bold">Todos</h2>
                 </div>
-                <div class="flex items-center">
-                    <button id="today-button" class="bg-gray-200 px-3 py-1 rounded-md mr-2">Today</button>
-                    <button class="bg-gray-200 px-3 py-1 rounded-md">Share</button>
-                </div>
+                <button id="open-sidebar" class="text-white hover:text-light">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
 
-            <div id="date-slider" class="flex items-center justify-between mb-6">
-                <!-- Dates will be dynamically inserted here by JavaScript -->
-            </div>
-
-            <div id="tasks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {% for task in tasks %}
-                <div class="bg-white p-4 rounded-md shadow">
-                    <h3 class="font-bold mb-2">{{ task.task_name }}</h3>
-                    <p>{{ task.start_time }} - {{ task.end_time }}</p>
-                    <div class="flex justify-between items-center">
-                        <i class="fas fa-calendar-alt"></i>
-                        <a href="{{ url_for('delete_task', task_id=task.id) }}" class="text-red-500"><i class="fas fa-trash"></i></a>
+            <div class="p-4">
+                <button id="add-task-button" class="bg-secondary hover:bg-accent px-3 py-2 rounded-md text-white mb-4">+ Add Task</button>
+                <form id="add-task-form" action="{{ url_for('add_task') }}" method="post" class="hidden w-full">
+                    <div class="bg-light p-4 rounded-md shadow-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+                            <input type="text" name="task_name" placeholder="Task Name" class="mb-2 p-2 rounded w-full text-black">
+                            <input type="date" name="task_date" class="mb-2 p-2 rounded w-full text-black">
+                            <input type="time" name="start_time" class="mb-2 p-2 rounded w-full text-black">
+                            <input type="time" name="end_time" class="mb-2 p-2 rounded w-full text-black">
+                        </div>
+                        <button type="submit" class="bg-accent hover:bg-primary px-3 py-2 rounded-md w-full text-white">Add Task</button>
                     </div>
+                </form>
+            </div>
+
+            <div class="flex-grow p-6">
+                <div id="tasks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for task in tasks %}
+                    <div class="bg-light p-4 rounded-md shadow-lg hover:shadow-xl transition-shadow" data-aos="fade-up">
+                        <h3 class="font-bold mb-2">{{ task.task_name }}</h3>
+                        <p>{{ task.start_time }} - {{ task.end_time }}</p>
+                        <p>{{ task.task_date.strftime('%d %b %Y') }}</p>
+                        <div class="flex justify-between items-center">
+                            <i class="fas fa-calendar-alt text-primary"></i>
+                            <a href="{{ url_for('delete_task', task_id=task.id) }}" class="text-secondary hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
-</div>
 
-<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <!-- Footer -->
+    <footer class="bg-primary text-white text-center p-4 mt-4">
+        <p>Created by Muhammad Hamja</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Dark Mode Toggle
+        document.getElementById('dark-mode-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            var icon = document.getElementById('dark-mode-icon');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Add Task Button Toggle
+        document.getElementById('add-task-button').addEventListener('click', function() {
+            var form = document.getElementById('add-task-form');
+            if (form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+            } else {
+                form.classList.add('hidden');
+            }
+        });
+
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const openSidebarButton = document.getElementById('open-sidebar');
+
+        openSidebarButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Close the sidebar when clicking outside of it
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !openSidebarButton.contains(e.target)) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+    </script>
 </body>
 </html>

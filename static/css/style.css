@@ -1,60 +1,57 @@
- 
-body {
-    font-family: Arial, sans-serif;
+.bg-primary {
+    background-color: #694F8E;
+}
+.bg-secondary {
+    background-color: #E3A5C7;
+}
+.bg-accent {
+    background-color: #B692C2;
+}
+.bg-light {
+    background-color: #FFDFD6;
+}
+.text-primary {
+    color: #694F8E;
+}
+.text-secondary {
+    color: #E3A5C7;
+}
+.text-accent {
+    color: #B692C2;
+}
+.text-light {
+    color: #FFDFD6;
 }
 
-h1 {
-    text-align: center;
+/* Dark Mode Styles */
+.dark-mode .bg-primary {
+    background-color: #17153B;
 }
-
-form {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    max-width: 500px;
-    margin: auto;
+.dark-mode .bg-secondary {
+    background-color: #2E236C;
 }
-
-label {
-    display: block;
-    margin-top: 10px;
+.dark-mode .bg-accent {
+    background-color: #433D8B;
 }
-
-input, button {
-    margin-top: 5px;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
+.dark-mode .bg-light {
+    background-color: #C8ACD6;
 }
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+.dark-mode .text-primary {
+    color: #C8ACD6;
 }
-
-button:hover {
-    background-color: #45a049;
+.dark-mode .text-secondary {
+    color: #433D8B;
 }
-
-.card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 16px;
-    margin: 8px;
-    background-color: #f9f9f9;
+.dark-mode .text-accent {
+    color: #2E236C;
 }
-
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.dark-mode .text-light {
+    color: #17153B;
 }
-
-.date-header {
-    margin-top: 16px;
-    font-weight: bold;
-    text-align: center;
+.dark-mode .text-black {
+    color: #C8ACD6;
+}
+.dark-mode {
+    background-color: #17153B;
+    color: #C8ACD6;
 }
