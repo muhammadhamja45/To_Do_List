@@ -55,10 +55,14 @@
         .dark-mode .text-light {
             color: #C8ACD6;
         }
+        .dark-mode body {
+            background-color: #121212;
+            color: #E4E4E4;
+        }
     </style>
 </head>
-<body class="bg-gray-100 flex flex-col min-h-screen">
-    <div class="h-screen flex overflow-hidden bg-gray-200">
+<body class="bg-gray-200">
+    <div>
         <!-- Sidebar -->
         <div class="absolute bg-primary text-white w-56 min-h-screen overflow-y-auto transition-transform transform -translate-x-full ease-in-out duration-300 dark:bg-primary"
             id="sidebar">
@@ -105,6 +109,10 @@
                             <input type="date" name="task_date" class="mb-2 p-2 rounded w-full text-black">
                             <input type="time" name="start_time" class="mb-2 p-2 rounded w-full text-black">
                             <input type="time" name="end_time" class="mb-2 p-2 rounded w-full text-black">
+                            <select name="status" class="mb-2 p-2 rounded w-full text-black">
+                                <option value="Low">Low</option>
+                                <option value="High">High</option>
+                            </select>
                         </div>
                         <button type="submit" class="bg-accent hover:bg-primary px-3 py-2 rounded-md w-full text-white">Add Task</button>
                     </div>
@@ -126,6 +134,44 @@
                         </div>
                     </div>
                     {% endfor %}
+                </div>
+                <div class="p-6">
+                    {% if tasks|length > 0 %}
+                    <form id="update-tasks-form" action="{{ url_for('tasks.update_tasks') }}" method="post">
+                        <div class="table-container">
+                            <table class="w-full bg-light rounded-md shadow-lg">
+                                <thead>
+                                    <tr>
+                                        <th class="p-2 text-left bg-secondary text-white">Task Name</th>
+                                        <th class="p-2 text-left bg-secondary text-white">Task Date</th>
+                                        <th class="p-2 text-left bg-secondary text-white">Start Time</th>
+                                        <th class="p-2 text-left bg-secondary text-white">End Time</th>
+                                        <th class="p-2 text-left bg-secondary text-white">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for task in tasks %}
+                                    <tr>
+                                        <td class="p-2"><input type="text" name="task_name_{{ task.id }}" value="{{ task.task_name }}" class="w-full p-2 rounded-md"></td>
+                                        <td class="p-2"><input type="date" name="task_date_{{ task.id }}" value="{{ task.task_date }}" class="w-full p-2 rounded-md"></td>
+                                        <td class="p-2"><input type="time" name="start_time_{{ task.id }}" value="{{ task.start_time }}" class="w-full p-2 rounded-md"></td>
+                                        <td class="p-2"><input type="time" name="end_time_{{ task.id }}" value="{{ task.end_time }}" class="w-full p-2 rounded-md"></td>
+                                        <td class="p-2">
+                                            <select name="status_{{ task.id }}" class="w-full p-2 rounded-md">
+                                                <option value="Low" {% if task.status == 'Low' %}selected{% endif %}>Low</option>
+                                                <option value="High" {% if task.status == 'High' %}selected{% endif %}>High</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="submit" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md mt-4">Save</button>
+                    </form>
+                    {% else %}
+                    <p class="text-center text-gray-500">No tasks available. Add a new task to get started!</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

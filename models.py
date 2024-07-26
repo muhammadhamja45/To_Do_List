@@ -18,4 +18,5 @@ class Task(db.Model):
     task_date = db.Column(db.Date, nullable=False)
     start_time = db.Column(db.Time, nullable=False)
     end_time = db.Column(db.Time, nullable=False)
+    status = db.Column(db.String(10), nullable=False, default='Low')
     user = db.relationship('User', backref=db.backref('tasks', lazy=True))
