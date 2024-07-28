@@ -111,45 +111,69 @@
         </div>
     </div>
 
-    <!-- New Card Section with Profile Image -->
-    <div class="container mx-auto px-6 py-8 text-white bg-primary">
-        <div class="bg-white rounded-lg shadow-lg p-6 flex items-center card-hover">
-            <div class="w-full lg:w-1/2 p-4">
-                <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile Image" class="w-full h-48 object-cover rounded-lg">
-            </div>
-            <div class="w-full lg:w-1/2 p-4">
-                <h2 class="text-xl md:text-2xl font-bold text-primary">Profil Saya</h2>
-                <p class="text-gray-600 mt-2">Penjelasan singkat tentang profil saya, memberikan informasi yang relevan dan menarik.</p>
-            </div>
+ <!-- New Card Section with Profile Image -->
+ <div class="container mx-auto px-6 py-8 text-white bg-primary">
+    <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col lg:flex-row items-center card-hover" style="transform: translateY(-10px);">
+        <div class="w-full lg:w-1/3 p-4">
+            <img src="{{ url_for('static', filename='images/image.png') }}" alt="Profile Image" class="w-full object-cover object-center rounded-lg" style="height: 300px;">
+        </div>
+        <div class="w-full lg:w-2/3 p-4">
+            <h2 class="text-xl md:text-2xl font-bold text-primary">Profil Saya</h2>
+            <p class="text-gray-600 mt-2">Nama Saya Muhammad Hamja. Saat ini, saya adalah seorang mahasiswa di Universitas Indraprasta PGRI, jurusan Teknik Informatika. Dalam perjalanan akademik saya, saya telah memperoleh pengetahuan dan keterampilan yang solid dalam berbagai aspek pengembangan web dan analisis data.
+
+                Saya memiliki pengalaman sebagai Junior Web Developer dan Junior Data Analyst di PT Jalin Pembayaran Nasional. Di sini, saya telah berkontribusi dalam berbagai proyek yang mengintegrasikan teknologi dan solusi inovatif untuk meningkatkan efisiensi dan efektivitas operasional.
+                
+                Selain pengalaman praktis, saya juga telah mengikuti berbagai pelatihan untuk memperdalam keahlian saya. Saya telah menyelesaikan pelatihan "100 Days of Code: The Complete Python Pro Bootcamp for 2023" di Udemy, yang memberikan pemahaman mendalam tentang bahasa pemrograman Python. Saya juga mengikuti program pelatihan dari Kominfo untuk menjadi Junior Web Developer, serta pelatihan MySQL di Udemy, yang memperkaya pemahaman saya tentang manajemen basis data.
+                
+                Dengan kombinasi pengalaman praktis dan pelatihan formal, saya bersemangat untuk terus berkembang dalam bidang teknologi informasi dan berkontribusi pada proyek-proyek yang berdampak positif.</p>
         </div>
     </div>
+</div>
 
-    <!-- Kritik dan Saran Form -->
-    <div class="container mx-auto px-6 py-8 bg-primary text-white">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Kritik dan Saran</h2>
-        <form action="/submit_feedback" method="POST" class="max-w-xl mx-auto">
-            <div class="mb-4">
-                <label for="name" class="block text-white mb-2">Nama</label>
-                <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required>
+
+    <!-- Kritik dan Saran Form dan Google Map Embed -->
+    <div class="container mx-auto px-6 py-8 bg-primary text-white flex flex-wrap">
+        <!-- Kritik dan Saran Form -->
+        <div class="w-full lg:w-1/2 p-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Kritik dan Saran</h2>
+            <form action="/submit_feedback" method="POST" class="max-w-xl mx-auto">
+                <div class="mb-4">
+                    <label for="name" class="block text-white mb-2">Nama</label>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-white mb-2">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required>
+                </div>
+                <div class="mb-4">
+                    <label for="message" class="block text-white mb-2">Pesan</label>
+                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="px-6 py-2 rounded-lg bg-secondary text-white hover:bg-tertiary">Kirim</button>
+                </div>
+            </form>
+        </div>
+        <!-- Google Map Embed -->
+        <div class="w-full lg:w-1/2 p-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Lokasi Kami</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.4324548811553!2d106.8594491!3d-6.2951493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed80b84ac47d%3A0x640561dd89719c88!2sUniversitas%20Indraprasta%20PGRI%20(UNINDRA)%2C%20Kampus%20B!5e0!3m2!1sid!2sid!4v1691578221364!5m2!1sid!2sid" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
             </div>
-            <div class="mb-4">
-                <label for="email" class="block text-white mb-2">Email</label>
-                <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required>
-            </div>
-            <div class="mb-4">
-                <label for="message" class="block text-white mb-2">Pesan</label>
-                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required></textarea>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="px-6 py-2 rounded-lg bg-secondary text-white hover:bg-tertiary">Kirim</button>
-            </div>
-        </form>
+        </div>
     </div>
 
     <!-- Footer -->
     <footer class="bg-primary text-white py-6 mt-8">
         <div class="container mx-auto text-center">
-            <p>&copy; 2024 To-Do List App. All rights reserved by Muhamamd Hamja</p>
+            <p>&copy; 2024 To-Do List App. All rights reserved by.</p>
             <div class="mt-4">
                 <a href="#" class="text-highlight hover:text-gray-300 mx-2">Privacy Policy</a>
                 <a href="#" class="text-highlight hover:text-gray-300 mx-2">Terms of Service</a>
