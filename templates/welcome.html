@@ -57,7 +57,7 @@
 
     <!-- Jumbotron -->
     <div class="relative">
-        <div class="relative bg-primary  text-white py-20">
+        <div class="relative bg-primary text-white py-20">
             <div class="container mx-auto text-center text-dark">
                 <h1 class="text-3xl md:text-5xl font-bold">
                     <span id="typed-text"></span>
@@ -67,10 +67,8 @@
         </div>
     </div>
 
-  
-
     <!-- Cards -->
-    <div class="container mx-auto  mt-0 flex flex-wrap">
+    <div class="container mx-auto mt-0 flex flex-wrap">
         <div class="w-full lg:w-1/3 p-4">
             <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
                 <img src="{{ url_for('static', filename='images/image.png') }}" alt="Image 1" class="w-full h-48 object-cover rounded-t-lg">
@@ -98,8 +96,8 @@
 
     <!-- Transparent Card -->
     <div class="container mx-auto px-6 py-8 text-center text-white bg-primary">
-        <div class="w-full  p-4 mx-auto">
-            <div class=" rounded-lg p-6 flex">
+        <div class="w-full p-4 mx-auto">
+            <div class="rounded-lg p-6 flex">
                 <div class="w-1/2 p-4">
                     <h2 class="text-xl md:text-2xl font-bold">Judul Penjelasan</h2>
                     <p class="mt-2">Penjelasan singkat bagian kiri.</p>
@@ -113,10 +111,45 @@
         </div>
     </div>
 
+    <!-- New Card Section with Profile Image -->
+    <div class="container mx-auto px-6 py-8 text-white bg-primary">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex items-center card-hover">
+            <div class="w-full lg:w-1/2 p-4">
+                <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile Image" class="w-full h-48 object-cover rounded-lg">
+            </div>
+            <div class="w-full lg:w-1/2 p-4">
+                <h2 class="text-xl md:text-2xl font-bold text-primary">Profil Saya</h2>
+                <p class="text-gray-600 mt-2">Penjelasan singkat tentang profil saya, memberikan informasi yang relevan dan menarik.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kritik dan Saran Form -->
+    <div class="container mx-auto px-6 py-8 bg-primary text-white">
+        <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Kritik dan Saran</h2>
+        <form action="/submit_feedback" method="POST" class="max-w-xl mx-auto">
+            <div class="mb-4">
+                <label for="name" class="block text-white mb-2">Nama</label>
+                <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-white mb-2">Email</label>
+                <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="block text-white mb-2">Pesan</label>
+                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="px-6 py-2 rounded-lg bg-secondary text-white hover:bg-tertiary">Kirim</button>
+            </div>
+        </form>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-primary text-white py-6 mt-8">
         <div class="container mx-auto text-center">
-            <p>&copy; 2024 To-Do List App. All rights reserved by.</p>
+            <p>&copy; 2024 To-Do List App. All rights reserved by Muhamamd Hamja</p>
             <div class="mt-4">
                 <a href="#" class="text-highlight hover:text-gray-300 mx-2">Privacy Policy</a>
                 <a href="#" class="text-highlight hover:text-gray-300 mx-2">Terms of Service</a>
