@@ -24,12 +24,21 @@ def register():
         username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password')
-        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
-        new_user = User(username=username, email=email, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user)
-        return redirect(url_for('tasks.index'))
+        
+        user_by_username = User.query.filter_by(username=username).first()
+        user_by_email = User.query.filter_by(email=email).first()
+
+        if user_by_username:
+            flash('Username sudah ada. Silakan gunakan username lain.', 'danger')
+        elif user_by_email:
+            flash('Email sudah ada. Silakan gunakan email lain.', 'danger')
+        else:
+            hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+            new_user = User(username=username, email=email, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user)
+            return redirect(url_for('tasks.index'))
     return render_template('register.html')
 
 @auth.route('/logout')

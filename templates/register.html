@@ -6,30 +6,44 @@
     <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
-<body class="bg-purple-300 flex items-center justify-center min-h-screen">
-    <div class="bg-white flex flex-col md:flex-row md:w-2/3 shadow-md rounded-lg">
-        <div class="md:w-1/2 p-6 flex items-center justify-center bg-purple-500 rounded-t-lg md:rounded-t-none md:rounded-l-lg">
-            <img src="{{ url_for('static', filename='images/image.png') }}" alt="Illustration" class="max-w-full h-auto rounded">
+<body class="bg-gray-900 flex items-center justify-center min-h-screen">
+    <div class="bg-gray-800 flex flex-col md:flex-row md:w-2/3 lg:w-1/2 shadow-md rounded-lg">
+        <div class="md:w-1/2 p-6 flex items-center justify-center bg-gray-800 rounded-t-lg md:rounded-t-none md:rounded-l-lg">
+            <dotlottie-player src="https://lottie.host/abfb6df8-d538-4190-bcd8-1bf69332ff0a/AFXGOuu6hA.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
         </div>
-        <div class="md:w-1/2 p-8 bg-purple-100 rounded-b-lg md:rounded-b-none md:rounded-r-lg">
-            <h1 class="text-2xl font-bold mb-4 text-purple-700">Register</h1>
+        <div class="md:w-1/2 p-8 bg-gray-800 rounded-b-lg md:rounded-b-none md:rounded-r-lg">
+            <h1 class="text-2xl font-bold mb-4 text-white">Register</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mb-4">
+                        {% for category, message in messages %}
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative animate__animated animate__shakeX" role="alert">
+                                <strong class="font-bold">Error:</strong>
+                                <span class="block sm:inline">{{ message }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
             <form action="{{ url_for('auth.register') }}" method="post">
                 <div class="mb-4">
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                    <input type="text" name="username" id="username" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" required>
+                    <label for="username" class="block text-sm font-medium text-gray-300">Username</label>
+                    <input type="text" name="username" id="username" class="mt-1 p-2 block w-full border border-gray-600 bg-gray-800 text-white rounded-md" required>
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" id="email" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" required>
+                    <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+                    <input type="email" name="email" id="email" class="mt-1 p-2 block w-full border border-gray-600 bg-gray-800 text-white rounded-md" required>
                 </div>
                 <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" name="password" id="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" required>
+                    <label for="password" class="block text-sm font-medium text-gray-300">Password</label>
+                    <input type="password" name="password" id="password" class="mt-1 p-2 block w-full border border-gray-600 bg-gray-800 text-white rounded-md" required>
                 </div>
                 <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white py-2 rounded-md">Register</button>
             </form>
-            <p class="mt-4 text-sm text-gray-600">Already have an account? <a href="{{ url_for('auth.login') }}" class="text-purple-500">Login</a></p>
+            <p class="mt-4 text-sm text-gray-400">Already have an account? <a href="{{ url_for('auth.login') }}" class="text-purple-500">Login</a></p>
         </div>
     </div>
 </body>

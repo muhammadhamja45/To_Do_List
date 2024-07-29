@@ -8,19 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         .bg-primary {
-            background-color: #17153B;
+            background-color: #1E1E2E;
         }
         .text-primary {
-            color: #17153B;
+            color: #F8F8F2;
         }
         .bg-secondary {
-            background-color: #2E236C;
+            background-color: #282A36;
         }
         .bg-tertiary {
-            background-color: #433D8B;
+            background-color: #44475A;
         }
         .text-highlight {
-            color: #C8ACD6;
+            color: #BD93F9;
         }
         .card-hover:hover {
             transform: translateY(-5px);
@@ -28,14 +28,13 @@
             z-index: 1;
         }
         .transparent-card {
-            background-color: rgba(248, 250, 252, 0.8); /* Same as bg-gray-100 with transparency */
+            background-color: rgba(40, 42, 54, 0.8); /* Same as bg-gray-800 with transparency */
             backdrop-filter: blur(10px);
         }
         .card-divider {
-            border-left: 2px solid #fff;
+            border-left: 2px solid #BD93F9;
         }
     </style>
-    <!-- Tambahkan link ke library typed.js -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </head>
 <body class="bg-primary">
@@ -70,25 +69,25 @@
     <!-- Cards -->
     <div class="container mx-auto mt-0 flex flex-wrap">
         <div class="w-full lg:w-1/3 p-4">
-            <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+            <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover">
                 <img src="{{ url_for('static', filename='images/image.png') }}" alt="Image 1" class="w-full h-48 object-cover rounded-t-lg">
-                <h2 class="text-xl md:text-2xl font-bold mt-4">Card 1</h2>
-                <p class="text-gray-600 mt-2">Deskripsi singkat tentang Card 1.</p>
+                <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">Card 1</h2>
+                <p class="text-gray-400 mt-2">Aplikasi To-Do List ini dirancang untuk menjamin produktivitas Anda dengan mencatat dan mengelola semua tugas dalam satu tempat yang terorganisir. Tidak ada lagi tugas yang terlewat atau terlupakan. Dengan antarmuka pengguna yang intuitif, aplikasi ini sangat mudah digunakan oleh siapa saja, baik pemula maupun yang sudah terbiasa dengan teknologi. Selain itu, aplikasi ini menawarkan kustomisasi yang fleksibel, memungkinkan Anda menyesuaikan pengaturan sesuai kebutuhan pribadi, mulai dari penjadwalan tugas hingga pengingat yang spesifik. Fitur pengingat otomatis juga memastikan Anda selalu ingat dengan tugas-tugas penting tanpa perlu repot memantau secara manual.</p>
             </div>
         </div>
         <div class="w-full lg:w-2/3 flex flex-wrap">
             <div class="w-full md:w-1/2 p-4">
-                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
-                    <img src="{{ url_for('static', filename='images/image.png') }}" alt="Image 2" class="w-full h-48 object-cover rounded-t-lg">
-                    <h2 class="text-xl md:text-2xl font-bold mt-4">Card 2</h2>
-                    <p class="text-gray-600 mt-2">Deskripsi singkat tentang Card 2.</p>
+                <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover">
+                    <img src="{{ url_for('static', filename='images/gmail.jpeg') }}" alt="Image 2" class="w-full h-48 object-cover rounded-t-lg">
+                    <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">Card 2</h2>
+                    <p class="text-gray-400 mt-2">Mengirim pesan melalui Gmail untuk mengingatkan tugas menawarkan notifikasi langsung yang masuk ke kotak masuk Anda, memastikan tidak ada pengingat yang terlewat. Gmail dapat diakses dari berbagai perangkat, baik itu smartphone, tablet, atau komputer, sehingga Anda selalu terhubung dengan tugas-tugas Anda di mana saja. Keamanan dan keandalan Gmail memberikan jaminan bahwa pesan pengingat Anda aman dan tersampaikan dengan baik. Selain itu, pengiriman pengingat melalui Gmail memungkinkan integrasi yang mulus dengan berbagai aplikasi dan layanan Google lainnya, membuat manajemen tugas menjadi lebih efisien dan praktis.</p>
                 </div>
             </div>
             <div class="w-full md:w-1/2 p-4">
-                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
-                    <img src="{{ url_for('static', filename='images/image.png') }}" alt="Image 3" class="w-full h-48 object-cover rounded-t-lg">
-                    <h2 class="text-xl md:text-2xl font-bold mt-4">Card 3</h2>
-                    <p class="text-gray-600 mt-2">Deskripsi singkat tentang Card 3.</p>
+                <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover">
+                    <img src="{{ url_for('static', filename='images/time.jpeg') }}" alt="Image 3" class="w-full h-48 object-cover rounded-t-lg">
+                    <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">Card 3</h2>
+                    <p class="text-gray-400 mt-2">Pengiriman pesan setiap 3 jam sekali memberikan pengingat rutin yang membantu menjaga fokus dan produktivitas Anda sepanjang hari. Interval ini meningkatkan manajemen waktu dengan membantu Anda membagi waktu dengan lebih baik, menghindari penundaan tugas, dan memastikan setiap tugas mendapatkan perhatian yang cukup. Pengingat yang sering juga memberikan dorongan motivasi dan membantu Anda tetap bersemangat dalam menyelesaikan tugas-tugas Anda. Selain itu, interval pengiriman setiap 3 jam dapat disesuaikan dengan kebutuhan Anda, memberikan fleksibilitas dalam pengelolaan waktu dan tugas, sehingga Anda dapat menyesuaikannya dengan rutinitas harian Anda.</p>
                 </div>
             </div>
         </div>
@@ -97,39 +96,38 @@
     <!-- Transparent Card -->
     <div class="container mx-auto px-6 py-8 text-center text-white bg-primary">
         <div class="w-full p-4 mx-auto">
-            <div class="rounded-lg p-6 flex">
-                <div class="w-1/2 p-4">
-                    <h2 class="text-xl md:text-2xl font-bold">Judul Penjelasan</h2>
-                    <p class="mt-2">Penjelasan singkat bagian kiri.</p>
+            <div class="transparent-card rounded-lg p-6 flex flex-col lg:flex-row">
+                <div class="w-full lg:w-1/2 p-4">
+                    <h2 class="text-xl md:text-2xl font-bold">Meningkatkan Produktivitas dan Manajemen Waktu</h2>
+                    <p class="mt-2">Dalam kehidupan yang sibuk dan penuh dengan berbagai tanggung jawab, sering kali sulit untuk mengingat semua tugas yang perlu diselesaikan. Aplikasi To-Do List ini dirancang untuk membantu pengguna meningkatkan produktivitas mereka dengan mencatat semua tugas dalam satu tempat yang terorganisir. Dengan fitur pengingat otomatis yang mengirimkan notifikasi rutin, pengguna dapat lebih mudah mengelola waktu mereka, memastikan tidak ada tugas yang terlewat, dan fokus pada prioritas yang paling penting. Aplikasi ini memberikan struktur dan disiplin yang diperlukan untuk mencapai tujuan dan menyelesaikan pekerjaan tepat waktu.</p>
                 </div>
                 <div class="card-divider"></div>
-                <div class="w-1/2 p-4">
-                    <h2 class="text-xl md:text-2xl font-bold">Judul Penjelasan</h2>
-                    <p class="mt-2">Penjelasan singkat bagian kanan.</p>
+                <div class="w-full lg:w-1/2 p-4">
+                    <h2 class="text-xl md:text-2xl font-bold">Meningkatkan Efisiensi dan Integrasi dengan Teknologi Modern</h2>
+                    <p class="mt-2">Dengan mengintegrasikan pengingat melalui Gmail, aplikasi ini memanfaatkan teknologi modern untuk memberikan notifikasi yang andal dan mudah diakses dari berbagai perangkat. Hal ini meningkatkan efisiensi manajemen tugas karena pengguna dapat menerima pengingat langsung di kotak masuk mereka, yang dapat diakses kapan saja dan di mana saja. Penggunaan Gmail sebagai media pengingat juga menawarkan keamanan dan keandalan yang tinggi, memastikan bahwa pesan pengingat selalu sampai tepat waktu. Dengan integrasi ini, aplikasi To-Do List tidak hanya membantu dalam manajemen tugas, tetapi juga menyediakan solusi yang terhubung dengan ekosistem teknologi yang sudah dikenal dan digunakan oleh banyak orang.</p>
                 </div>
             </div>
         </div>
     </div>
 
- <!-- New Card Section with Profile Image -->
- <div class="container mx-auto px-6 py-8 text-white bg-primary">
-    <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col lg:flex-row items-center card-hover" style="transform: translateY(-10px);">
-        <div class="w-full lg:w-1/3 p-4">
-            <img src="{{ url_for('static', filename='images/image.png') }}" alt="Profile Image" class="w-full object-cover object-center rounded-lg" style="height: 300px;">
-        </div>
-        <div class="w-full lg:w-2/3 p-4">
-            <h2 class="text-xl md:text-2xl font-bold text-primary">Profil Saya</h2>
-            <p class="text-gray-600 mt-2">Nama Saya Muhammad Hamja. Saat ini, saya adalah seorang mahasiswa di Universitas Indraprasta PGRI, jurusan Teknik Informatika. Dalam perjalanan akademik saya, saya telah memperoleh pengetahuan dan keterampilan yang solid dalam berbagai aspek pengembangan web dan analisis data.
+    <!-- New Card Section with Profile Image -->
+    <div class="container mx-auto px-6 py-8 text-white bg-primary">
+        <div class="bg-secondary rounded-lg shadow-lg p-6 flex flex-col lg:flex-row items-center card-hover">
+            <div class="w-full lg:w-1/3 p-4">
+                <img src="{{ url_for('static', filename='images/profil.jpeg') }}" alt="Profile Image" class="w-full object-cover object-center rounded-lg" style="height: 400px;">
+            </div>
+            <div class="w-full lg:w-2/3 p-4">
+                <h2 class="text-xl md:text-2xl font-bold text-primary">Profil Saya</h2>
+                <p class="text-gray-400 mt-2">Nama Saya Muhammad Hamja. Saat ini, saya adalah seorang mahasiswa di Universitas Indraprasta PGRI, jurusan Teknik Informatika. Dalam perjalanan akademik saya, saya telah memperoleh pengetahuan dan keterampilan yang solid dalam berbagai aspek pengembangan web dan analisis data.
 
                 Saya memiliki pengalaman sebagai Junior Web Developer dan Junior Data Analyst di PT Jalin Pembayaran Nasional. Di sini, saya telah berkontribusi dalam berbagai proyek yang mengintegrasikan teknologi dan solusi inovatif untuk meningkatkan efisiensi dan efektivitas operasional.
                 
                 Selain pengalaman praktis, saya juga telah mengikuti berbagai pelatihan untuk memperdalam keahlian saya. Saya telah menyelesaikan pelatihan "100 Days of Code: The Complete Python Pro Bootcamp for 2023" di Udemy, yang memberikan pemahaman mendalam tentang bahasa pemrograman Python. Saya juga mengikuti program pelatihan dari Kominfo untuk menjadi Junior Web Developer, serta pelatihan MySQL di Udemy, yang memperkaya pemahaman saya tentang manajemen basis data.
                 
                 Dengan kombinasi pengalaman praktis dan pelatihan formal, saya bersemangat untuk terus berkembang dalam bidang teknologi informasi dan berkontribusi pada proyek-proyek yang berdampak positif.</p>
+            </div>
         </div>
     </div>
-</div>
-
 
     <!-- Kritik dan Saran Form dan Google Map Embed -->
     <div class="container mx-auto px-6 py-8 bg-primary text-white flex flex-wrap">
@@ -139,25 +137,25 @@
             <form action="/submit_feedback" method="POST" class="max-w-xl mx-auto">
                 <div class="mb-4">
                     <label for="name" class="block text-white mb-2">Nama</label>
-                    <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-white mb-2">Email</label>
-                    <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
                 </div>
                 <div class="mb-4">
                     <label for="message" class="block text-white mb-2">Pesan</label>
-                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-200 text-primary" required></textarea>
+                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="px-6 py-2 rounded-lg bg-secondary text-white hover:bg-tertiary">Kirim</button>
+                    <button type="submit" class="px-6 py-2 rounded-lg bg-highlight text-white hover:bg-tertiary">Kirim</button>
                 </div>
             </form>
         </div>
         <!-- Google Map Embed -->
         <div class="w-full lg:w-1/2 p-4">
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Lokasi Kami</h2>
-            <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="bg-secondary rounded-lg shadow-lg p-6">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.4324548811553!2d106.8594491!3d-6.2951493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed80b84ac47d%3A0x640561dd89719c88!2sUniversitas%20Indraprasta%20PGRI%20(UNINDRA)%2C%20Kampus%20B!5e0!3m2!1sid!2sid!4v1691578221364!5m2!1sid!2sid" 
                     width="100%" 
@@ -173,7 +171,7 @@
     <!-- Footer -->
     <footer class="bg-primary text-white py-6 mt-8">
         <div class="container mx-auto text-center">
-            <p>&copy; 2024 To-Do List App. All rights reserved by.</p>
+            <p>&copy; 2024 To-Do List App. All rights reserved.</p>
             <div class="mt-4">
                 <a href="#" class="text-highlight hover:text-gray-300 mx-2">Privacy Policy</a>
                 <a href="#" class="text-highlight hover:text-gray-300 mx-2">Terms of Service</a>
