@@ -23,6 +23,7 @@ def send_email(user_email, tasks):
                     <th style="padding: 8px; text-align: left; background-color: #f2f2f2;">Date</th>
                     <th style="padding: 8px; text-align: left; background-color: #f2f2f2;">Start Time</th>
                     <th style="padding: 8px; text-align: left; background-color: #f2f2f2;">End Time</th>
+                    <th style="padding: 8px; text-align: left; background-color: #f2f2f2;">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,13 +36,14 @@ def send_email(user_email, tasks):
                 <td style="padding: 8px;">{task.task_date}</td>
                 <td style="padding: 8px;">{task.start_time}</td>
                 <td style="padding: 8px;">{task.end_time}</td>
+                <td style="padding: 8px;">{task.status}</td>
             </tr>
         """
 
     body += """
             </tbody>
         </table>
-        <p>Thank you for using our service.</p>
+        <p>Thank you for using our service.By Muhammad Hamja</p>
     </body>
     </html>
     """
