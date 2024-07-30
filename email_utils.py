@@ -2,11 +2,23 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import current_app
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def send_email(user_email, tasks):
-    sender_email = current_app.config['EMAIL_SENDER']
-    sender_password = current_app.config['EMAIL_PASSWORD']
+    sender_email = current_app.config.get('MAIL_USERNAME')
+    sender_password = current_app.config.get('MAIL_PASSWORD')
     
+    logger.info(f"Sender email: {sender_email}")
+    logger.info(f"Sender password: {'*' * len(sender_password) if sender_password else 'Not set'}")
+
+    if not sender_email or not sender_password:
+        logger.error("EMAIL_SENDER or EMAIL_PASSWORD not set in configuration.")
+        return
+
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = user_email
@@ -43,7 +55,7 @@ def send_email(user_email, tasks):
     body += """
             </tbody>
         </table>
-        <p>Thank you for using our service.By Muhammad Hamja</p>
+        <p>Thank you for using our service. By Muhammad Hamja</p>
     </body>
     </html>
     """
@@ -51,15 +63,15 @@ def send_email(user_email, tasks):
     msg.attach(MIMEText(body, 'html'))
 
     try:
-        print(f"Sending email to {user_email}...")
+        logger.info(f"Sending email to {user_email}...")
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(sender_email, sender_password)
         text = msg.as_string()
         server.sendmail(sender_email, user_email, text)
         server.quit()
-        print(f"Email sent to {user_email}")
+        logger.info(f"Email sent to {user_email}")
     except smtplib.SMTPException as e:
-        print(f"SMTP error occurred: {e}")
+        logger.error(f"SMTP error occurred: {e}")
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        logger.error(f"Failed to send email: {e}")

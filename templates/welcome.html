@@ -1,44 +1,85 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Datang</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <style>
-        .bg-primary {
-            background-color: #1E1E2E;
-        }
-        .text-primary {
-            color: #F8F8F2;
-        }
-        .bg-secondary {
-            background-color: #282A36;
-        }
-        .bg-tertiary {
-            background-color: #44475A;
-        }
-        .text-highlight {
-            color: #BD93F9;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s;
-            z-index: 1;
-        }
-        .transparent-card {
-            background-color: rgba(40, 42, 54, 0.8); /* Same as bg-gray-800 with transparency */
-            backdrop-filter: blur(10px);
-        }
-        .card-divider {
-            border-left: 2px solid #BD93F9;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Selamat Datang</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+        <style>
+            .scroll-container {
+                overflow: hidden;
+                white-space: nowrap;
+                display: flex;
+            }
+            .scroll-content {
+                display: inline-flex;
+                animation: scroll-left 30s linear infinite;
+            }
+            .scroll-card {
+                display: inline-block;
+                margin-right: 20px;
+            }
+            .border-highlight {
+                border-color: #BD93F9;
+            }
+            .feedback-content {
+                overflow: hidden;
+                transition: height 0.5s ease;
+            }
+            @keyframes scroll-left {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+            .bg-primary {
+                background-color: #1E1E2E;
+            }
+            .text-primary {
+                color: #F8F8F2;
+            }
+            .bg-secondary {
+                background-color: #282A36;
+            }
+            .bg-tertiary {
+                background-color: #44475A;
+            }
+            .text-highlight {
+                color: #BD93F9;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                transition: transform 0.3s;
+                z-index: 1;
+            }
+            .transparent-card {
+                background-color: rgba(40, 42, 54, 0.8); /* Same as bg-gray-800 with transparency */
+                backdrop-filter: blur(10px);
+            }
+            .card-divider {
+                border-left: 2px solid #BD93F9;
+            }
+            .scroll-container {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+            }
+            .scroll-card {
+                scroll-snap-align: start;
+                flex: 0 0 auto;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    </head>
+    
 <body class="bg-primary">
 
     <!-- Navbar -->
@@ -170,67 +211,120 @@
           </div>
       </div>
   </div>
-    <!-- Kritik dan Saran Form dan Google Map Embed -->
-    <div class="container mx-auto px-6 py-8 bg-primary text-white flex flex-wrap">
-        <!-- Kritik dan Saran Form -->
-        <div class="w-full lg:w-1/2 p-4">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Kritik dan Saran</h2>
-            <form action="/submit_feedback" method="POST" class="max-w-xl mx-auto">
-                <div class="mb-4">
-                    <label for="name" class="block text-white mb-2">Nama</label>
-                    <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
+  
+<!-- Kritik dan Saran Form dan Google Map Embed -->
+<div class="container mx-auto px-6 py-8 bg-primary text-white flex flex-wrap">
+    <!-- Kritik dan Saran Form -->
+    <div class="w-full lg:w-1/2 p-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Kritik dan Saran</h2>
+        <!-- Display flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="mb-4">
+              {% for category, message in messages %}
+                <div class="p-4 mb-4 text-sm text-{{ category }}-800 bg-{{ category }}-100 rounded-lg animate__animated animate__fadeInUp" role="alert">
+                  {{ message }}
                 </div>
-                <div class="mb-4">
-                    <label for="email" class="block text-white mb-2">Email</label>
-                    <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
-                </div>
-                <div class="mb-4">
-                    <label for="message" class="block text-white mb-2">Pesan</label>
-                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="px-6 py-2 rounded-lg bg-highlight text-white hover:bg-tertiary">Kirim</button>
-                </div>
-            </form>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('welcome.submit_feedback') }}" method="POST" class="max-w-xl mx-auto">
+            <div class="mb-4">
+                <label for="name" class="block text-white mb-2">Nama</label>
+                <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-white mb-2">Email</label>
+                <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="block text-white mb-2">Pesan</label>
+                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="px-6 py-2 rounded-lg bg-highlight text-white hover:bg-tertiary">Kirim</button>
+            </div>
+        </form>
+    </div>
+    <!-- Google Map Embed -->
+    <div class="w-full lg:w-1/2 p-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Lokasi Kami</h2>
+        <div class="bg-secondary rounded-lg shadow-lg p-6">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.4324548811553!2d106.8594491!3d-6.2951493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed80b84ac47d%3A0x640561dd89719c88!2sUniversitas%20Indraprasta%20PGRI%20(UNINDRA)%2C%20Kampus%20B!5e0!3m2!1sid!2sid!4v1691578221364!5m2!1sid!2sid" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
         </div>
-        <!-- Google Map Embed -->
-        <div class="w-full lg:w-1/2 p-4">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Lokasi Kami</h2>
-            <div class="bg-secondary rounded-lg shadow-lg p-6">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.4324548811553!2d106.8594491!3d-6.2951493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed80b84ac47d%3A0x640561dd89719c88!2sUniversitas%20Indraprasta%20PGRI%20(UNINDRA)%2C%20Kampus%20B!5e0!3m2!1sid!2sid!4v1691578221364!5m2!1sid!2sid" 
-                    width="100%" 
-                    height="450" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
+    </div>
+</div>
+<!-- Kritik dan Saran Section -->
+<div class="container mx-auto px-6 py-8 bg-primary text-white">
+    <button id="toggleFeedback" class="px-6 py-2 rounded-lg bg-highlight text-white hover:bg-tertiary flex items-center justify-between">
+        <span>Lihat Kritik dan Saran</span>
+        <i id="toggleIcon" class="fas fa-chevron-down ml-2"></i>
+    </button>
+    <div class="border-b-2 border-highlight my-4"></div>
+    <div id="feedbackContent" class="feedback-content hidden mt-6">
+        <div class="scroll-container">
+            <div class="scroll-content">
+                {% for feedback in feedbacks %}
+                <div class="bg-secondary rounded-lg shadow-lg p-6 m-2 scroll-card card-hover">
+                    <h3 class="text-xl font-bold text-primary">{{ feedback.name }}</h3>
+                    <p class="text-gray-400 mt-2">{{ feedback.message }}</p>
+                    <p class="text-gray-500 text-sm mt-2">{{ feedback.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                </div>
+                {% endfor %}
+                <!-- Duplicate feedbacks to create infinite scroll effect -->
+                {% for feedback in feedbacks %}
+                <div class="bg-secondary rounded-lg shadow-lg p-6 m-2 scroll-card card-hover">
+                    <h3 class="text-xl font-bold text-primary">{{ feedback.name }}</h3>
+                    <p class="text-gray-400 mt-2">{{ feedback.message }}</p>
+                    <p class="text-gray-500 text-sm mt-2">{{ feedback.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
+</div>
+<!-- JavaScript untuk animasi kritik & saran -->
+<script>
+    var options = {
+        strings: ["Selamat Datang di Website To-Do List", "Organisasi tugas Anda menjadi lebih mudah dan efisien"],
+        typeSpeed: 50,
+        backSpeed: 50,
+        loop: true
+    };
 
-    <!-- Footer -->
-    <footer class="bg-primary text-white py-6 mt-8">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2024 To-Do List App. All rights reserved.</p>
-            <div class="mt-4">
-                <a href="#" class="text-highlight hover:text-gray-300 mx-2">Privacy Policy</a>
-                <a href="#" class="text-highlight hover:text-gray-300 mx-2">Terms of Service</a>
-            </div>
-        </div>
-    </footer>
+    var typed = new Typed("#typed-text", options);
 
-    <!-- JavaScript untuk efek pengetikan -->
-    <script>
-        var options = {
-            strings: ["Selamat Datang di Website To-Do List", "Organisasi tugas Anda menjadi lebih mudah dan efisien"],
-            typeSpeed: 50,
-            backSpeed: 50,
-            loop: true
-        };
+    document.addEventListener("DOMContentLoaded", function () {
+        const feedbackButton = document.getElementById('toggleFeedback');
+        const feedbackContent = document.getElementById('feedbackContent');
+        const toggleIcon = document.getElementById('toggleIcon');
 
-        var typed = new Typed("#typed-text", options);
-    </script>
-
-</body>
-</html>
+        feedbackButton.addEventListener('click', function () {
+            if (feedbackContent.classList.contains('hidden')) {
+                feedbackContent.style.height = '0';
+                feedbackContent.classList.remove('hidden');
+                setTimeout(() => {
+                    feedbackContent.style.height = feedbackContent.scrollHeight + 'px';
+                }, 10);
+            } else {
+                feedbackContent.style.height = feedbackContent.scrollHeight + 'px';
+                setTimeout(() => {
+                    feedbackContent.style.height = '0';
+                }, 10);
+                feedbackContent.addEventListener('transitionend', () => {
+                    feedbackContent.classList.add('hidden');
+                }, { once: true });
+            }
+            toggleIcon.classList.toggle('fa-chevron-down');
+            toggleIcon.classList.toggle('fa-chevron-up');
+        });
+    });
+</script>

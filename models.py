@@ -1,7 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
+from extensions import db
 from flask_login import UserMixin
-
-db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -20,3 +18,11 @@ class Task(db.Model):
     end_time = db.Column(db.Time, nullable=False)
     status = db.Column(db.String(10), nullable=False, default='Low')
     user = db.relationship('User', backref=db.backref('tasks', lazy=True))
+
+
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
