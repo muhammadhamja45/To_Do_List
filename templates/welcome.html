@@ -1,89 +1,102 @@
 <!DOCTYPE html>
 <html lang="id">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Selamat Datang</title>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Datang</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        .bg-primary {
+            background-color: #070F2B;
+        }
+        .text-primary {
+            color: #9290C3;
+        }
+        .bg-secondary {
+            background-color: #1B1A55;
+        }
+        .bg-tertiary {
+            background-color: #535C91;
+        }
+        .text-highlight {
+            color: #9290C3;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s;
+            z-index: 1;
+        }
+        .transparent-card {
+            background-color: rgba(27, 26, 85, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .card-divider {
+            border-left: 2px solid #9290C3;
+        }
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+        .scroll-card {
+            scroll-snap-align: start;
+            flex: 0 0 auto;
+            margin-right: 1rem;
+        }
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const feedbackButton = document.getElementById('toggleFeedback');
+            const feedbackContent = document.getElementById('feedbackContent');
 
-        <style>
-            .scroll-container {
-                overflow: hidden;
-                white-space: nowrap;
-                display: flex;
-            }
-            .scroll-content {
-                display: inline-flex;
-                animation: scroll-left 30s linear infinite;
-            }
-            .scroll-card {
-                display: inline-block;
-                margin-right: 20px;
-            }
-            .border-highlight {
-                border-color: #BD93F9;
-            }
-            .feedback-content {
-                overflow: hidden;
-                transition: height 0.5s ease;
-            }
-            @keyframes scroll-left {
-                0% {
-                    transform: translateX(0);
-                }
-                100% {
-                    transform: translateX(-50%);
-                }
-            }
-            .bg-primary {
-                background-color: #1E1E2E;
-            }
-            .text-primary {
-                color: #F8F8F2;
-            }
-            .bg-secondary {
-                background-color: #282A36;
-            }
-            .bg-tertiary {
-                background-color: #44475A;
-            }
-            .text-highlight {
-                color: #BD93F9;
-            }
-            .card-hover:hover {
-                transform: translateY(-5px);
-                transition: transform 0.3s;
-                z-index: 1;
-            }
-            .transparent-card {
-                background-color: rgba(40, 42, 54, 0.8); /* Same as bg-gray-800 with transparency */
-                backdrop-filter: blur(10px);
-            }
-            .card-divider {
-                border-left: 2px solid #BD93F9;
-            }
-            .scroll-container {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-            }
-            .scroll-card {
-                scroll-snap-align: start;
-                flex: 0 0 auto;
-            }
-        </style>
-        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    </head>
-    
+            feedbackButton.addEventListener('click', function () {
+                feedbackContent.classList.toggle('hidden');
+            });
+
+            const scrollContainer = document.querySelector('.scroll-container');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            scrollContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                scrollContainer.classList.add('active');
+                startX = e.pageX - scrollContainer.offsetLeft;
+                scrollLeft = scrollContainer.scrollLeft;
+            });
+
+            scrollContainer.addEventListener('mouseleave', () => {
+                isDown = false;
+                scrollContainer.classList.remove('active');
+            });
+
+            scrollContainer.addEventListener('mouseup', () => {
+                isDown = false;
+                scrollContainer.classList.remove('active');
+            });
+
+            scrollContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - scrollContainer.offsetLeft;
+                const walk = (x - startX) * 3; //scroll-fast
+                scrollContainer.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+</head>
 <body class="bg-primary">
 
     <!-- Navbar -->
-    <nav class="bg-primary shadow">
+    <nav class="bg-primary shadow" data-aos="fade-down">
         <div class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
                 <div>
@@ -99,7 +112,7 @@
 
     <!-- Jumbotron -->
     <div class="relative">
-        <div class="relative bg-primary text-white py-20">
+        <div class="relative bg-primary text-white py-20" data-aos="fade-up">
             <div class="container mx-auto text-center">
                 <h1 class="text-3xl md:text-5xl font-bold">
                     <span id="typed-text"></span>
@@ -109,36 +122,42 @@
         </div>
     </div>
 
-    <!-- Cards -->
-    <div class="container mx-auto mt-0 flex flex-wrap">
-        <div class="w-full lg:w-1/3 p-4">
-            <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover">
-                <lottie-player src="https://lottie.host/d5b7e024-b3d7-43d3-a104-8dd87ee15fec/gt5mFxVgVZ.json" background="##FFFFFF" speed="1" style="width: 100%; height: 300px;" loop autoplay direction="1" mode="normal"></lottie-player>
-                <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">Card 1</h2>
+   <!-- Cards -->
+<div class="container mx-auto mt-0 flex flex-wrap">
+    <div class="w-full lg:w-1/3 p-4" data-aos="zoom-in">
+        <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover h-full flex flex-col justify-between">
+            <lottie-player src="https://lottie.host/d5b7e024-b3d7-43d3-a104-8dd87ee15fec/gt5mFxVgVZ.json" background="##FFFFFF" speed="1" style="width: 100%; height: 300px;" loop autoplay direction="1" mode="normal"></lottie-player>
+            <div>
+                <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">To Do List</h2>
                 <p class="text-gray-400 mt-2">Aplikasi To-Do List ini dirancang untuk menjamin produktivitas Anda dengan mencatat dan mengelola semua tugas dalam satu tempat yang terorganisir. Tidak ada lagi tugas yang terlewat atau terlupakan. Dengan antarmuka pengguna yang intuitif, aplikasi ini sangat mudah digunakan oleh siapa saja, baik pemula maupun yang sudah terbiasa dengan teknologi. Selain itu, aplikasi ini menawarkan kustomisasi yang fleksibel, memungkinkan Anda menyesuaikan pengaturan sesuai kebutuhan pribadi, mulai dari penjadwalan tugas hingga pengingat yang spesifik. Fitur pengingat otomatis juga memastikan Anda selalu ingat dengan tugas-tugas penting tanpa perlu repot memantau secara manual.</p>
             </div>
         </div>
-        <div class="w-full lg:w-2/3 flex flex-wrap">
-            <div class="w-full md:w-1/2 p-4">
-                <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover">
-                    <dotlottie-player src="https://lottie.host/37020601-a3f6-4f9e-be15-a747e5708525/tlUK7soCd0.json" background="transparent" speed="1" style="width: 100%; height: 300px;" loop autoplay></dotlottie-player>
-                    <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">Card 2</h2>
+    </div>
+    <div class="w-full lg:w-2/3 flex flex-wrap">
+        <div class="w-full md:w-1/2 p-4" data-aos="zoom-in">
+            <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover h-full flex flex-col justify-between">
+                <dotlottie-player src="https://lottie.host/37020601-a3f6-4f9e-be15-a747e5708525/tlUK7soCd0.json" background="transparent" speed="1" style="width: 100%; height: 300px;" loop autoplay></dotlottie-player>
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">Gmail</h2>
                     <p class="text-gray-400 mt-2">Mengirim pesan melalui Gmail untuk mengingatkan tugas menawarkan notifikasi langsung yang masuk ke kotak masuk Anda, memastikan tidak ada pengingat yang terlewat. Gmail dapat diakses dari berbagai perangkat, baik itu smartphone, tablet, atau komputer, sehingga Anda selalu terhubung dengan tugas-tugas Anda di mana saja. Keamanan dan keandalan Gmail memberikan jaminan bahwa pesan pengingat Anda aman dan tersampaikan dengan baik. Selain itu, pengiriman pengingat melalui Gmail memungkinkan integrasi yang mulus dengan berbagai aplikasi dan layanan Google lainnya, membuat manajemen tugas menjadi lebih efisien dan praktis.</p>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 p-4">
-                <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover">
-                    <lottie-player src="https://lottie.host/a5a66a43-d7eb-4110-a59f-d29e7912c5e6/XNL0ekuXC5.json" background="##FFFFFF" speed="1" style="width: 100%; height: 300px;" loop autoplay direction="1" mode="normal"></lottie-player>
-                    <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">Card 3</h2>
+        </div>
+        <div class="w-full md:w-1/2 p-4" data-aos="zoom-in">
+            <div class="bg-secondary rounded-lg shadow-lg p-6 card-hover h-full flex flex-col justify-between">
+                <lottie-player src="https://lottie.host/a5a66a43-d7eb-4110-a59f-d29e7912c5e6/XNL0ekuXC5.json" background="##FFFFFF" speed="1" style="width: 100%; height: 300px;" loop autoplay direction="1" mode="normal"></lottie-player>
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold text-primary mt-4">Waktu</h2>
                     <p class="text-gray-400 mt-2">Pengiriman pesan setiap 3 jam sekali memberikan pengingat rutin yang membantu menjaga fokus dan produktivitas Anda sepanjang hari. Interval ini meningkatkan manajemen waktu dengan membantu Anda membagi waktu dengan lebih baik, menghindari penundaan tugas, dan memastikan setiap tugas mendapatkan perhatian yang cukup. Pengingat yang sering juga memberikan dorongan motivasi dan membantu Anda tetap bersemangat dalam menyelesaikan tugas-tugas Anda. Selain itu, interval pengiriman setiap 3 jam dapat disesuaikan dengan kebutuhan Anda, memberikan fleksibilitas dalam pengelolaan waktu dan tugas, sehingga Anda dapat menyesuaikannya dengan rutinitas harian Anda.</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Transparent Card -->
     <div class="container mx-auto px-6 py-8 text-center text-white bg-primary">
-        <div class="w-full p-4 mx-auto">
+        <div class="w-full p-4 mx-auto" data-aos="fade-up">
             <div class="transparent-card rounded-lg p-6 flex flex-col lg:flex-row">
                 <div class="w-full lg:w-1/2 p-4">
                     <h2 class="text-xl md:text-2xl font-bold">Meningkatkan Produktivitas dan Manajemen Waktu</h2>
@@ -155,7 +174,7 @@
 
     <!-- New Card Section with Profile Image -->
     <div class="container mx-auto px-6 py-8 text-white bg-primary">
-        <div class="bg-secondary rounded-lg shadow-lg p-6 flex flex-col lg:flex-row items-center card-hover">
+        <div class="bg-secondary rounded-lg shadow-lg p-6 flex flex-col lg:flex-row items-center card-hover" data-aos="fade-up">
             <div class="w-full lg:w-1/3 p-4">
                 <img src="{{ url_for('static', filename='images/profil.jpeg') }}" alt="Profile Image" class="w-full object-cover object-center rounded-lg" style="height: 400px;">
             </div>
@@ -178,110 +197,107 @@
         </div>
     </div>
 
-    <!-- Skills Cards Section -->
-    <div class="container mx-auto px-6 py-8 text-white bg-primary">
-      <div class="flex flex-wrap -mx-4">
-          <div class="w-full sm:w-1/2 lg:w-1/4 p-4">
-              <div class="bg-secondary rounded-lg shadow-lg p-6 text-center card-hover skill-card">
-                  <lottie-player src="https://lottie.host/7e7cd757-5611-4180-9335-4920299fec13/PaRBHES7mt.json" background="##FFFFFF" speed="1" loop  autoplay direction="1" mode="normal"></lottie-player>
-                  <h3 class="text-xl md:text-2xl font-bold text-primary mt-4">Python</h3>
-                  <p class="text-gray-400 mt-2">Pengalaman dalam pengembangan aplikasi menggunakan Python, termasuk otomatisasi tugas, analisis data, dan pengembangan web dengan Flask dan Django.</p>
-              </div>
+   <!-- Skills Cards Section -->
+<div class="container mx-auto px-6 py-8 text-white bg-primary">
+    <div class="flex flex-wrap -mx-4">
+      <div class="w-full sm:w-1/2 lg:w-1/4 p-4" data-aos="fade-up">
+        <div class="bg-secondary rounded-lg shadow-lg p-6 text-center card-hover skill-card h-full flex flex-col justify-between">
+          <lottie-player src="https://lottie.host/7e7cd757-5611-4180-9335-4920299fec13/PaRBHES7mt.json" background="##FFFFFF" speed="1" loop autoplay direction="1" mode="normal"></lottie-player>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-primary mt-4">Python</h3>
+            <p class="text-gray-400 mt-2">Pengalaman dalam pengembangan aplikasi menggunakan Python, termasuk otomatisasi tugas, analisis data, dan pengembangan web dengan Flask dan Django.</p>
           </div>
-          <div class="w-full sm:w-1/2 lg:w-1/4 p-4">
-              <div class="bg-secondary rounded-lg shadow-lg p-6 text-center card-hover skill-card">
-                  <lottie-player src="https://lottie.host/0cb48777-f2e7-463f-84e0-5e5becd1ba99/abIFzdlZLb.json" background="##FFFFFF" speed="1" loop  autoplay direction="1" mode="normal"></lottie-player>
-                  <h3 class="text-xl md:text-2xl font-bold text-primary mt-4">MySQL</h3>
-                  <p class="text-gray-400 mt-2">Keahlian dalam manajemen basis data menggunakan MySQL, mencakup desain database, optimasi query, dan administrasi basis data.</p>
-              </div>
-          </div>
-          <div class="w-full sm:w-1/2 lg:w-1/4 p-4">
-              <div class="bg-secondary rounded-lg shadow-lg p-6 text-center card-hover skill-card">
-                  <lottie-player src="https://lottie.host/26500ee4-1a3b-4b6c-83f0-6500e81f64d3/kzUmW629UB.json" background="##FFFFFF" speed="1" loop  autoplay direction="1" mode="normal"></lottie-player>
-                  <h3 class="text-xl md:text-2xl font-bold text-primary mt-4">CSS</h3>
-                  <p class="text-gray-400 mt-2">Kemampuan dalam menggunakan CSS untuk menciptakan antarmuka pengguna yang responsif dan modern dengan cepat.</p>
-              </div>
-          </div>
-          <div class="w-full sm:w-1/2 lg:w-1/4 p-4">
-              <div class="bg-secondary rounded-lg shadow-lg p-6 text-center card-hover skill-card">
-                  <dotlottie-player src="https://lottie.host/df2a2d2a-d976-4c1b-a40b-e86b3ee15cf9/tmxD2OLpCK.json" background="transparent" speed="1" loop autoplay></dotlottie-player>
-                  <h3 class="text-xl md:text-2xl font-bold text-primary mt-4">HTML</h3>
-                  <p class="text-gray-400 mt-2">Penguasaan HTML untuk strukturisasi konten web yang semantik dan aksesibel, sebagai dasar dari pengembangan web front-end.</p>
-              </div>
-          </div>
+        </div>
       </div>
+      <div class="w-full sm:w-1/2 lg:w-1/4 p-4" data-aos="fade-up">
+        <div class="bg-secondary rounded-lg shadow-lg p-6 text-center card-hover skill-card h-full flex flex-col justify-between">
+          <lottie-player src="https://lottie.host/0cb48777-f2e7-463f-84e0-5e5becd1ba99/abIFzdlZLb.json" background="##FFFFFF" speed="1" loop autoplay direction="1" mode="normal"></lottie-player>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-primary mt-4">MySQL</h3>
+            <p class="text-gray-400 mt-2">Keahlian dalam manajemen basis data menggunakan MySQL, mencakup desain database, optimasi query, dan administrasi basis data.</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-full sm:w-1/2 lg:w-1/4 p-4" data-aos="fade-up">
+        <div class="bg-secondary rounded-lg shadow-lg p-6 text-center card-hover skill-card h-full flex flex-col justify-between">
+          <lottie-player src="https://lottie.host/26500ee4-1a3b-4b6c-83f0-6500e81f64d3/kzUmW629UB.json" background="##FFFFFF" speed="1" loop autoplay direction="1" mode="normal"></lottie-player>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-primary mt-4">CSS</h3>
+            <p class="text-gray-400 mt-2">Kemampuan dalam menggunakan CSS untuk menciptakan antarmuka pengguna yang responsif dan modern dengan cepat.</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-full sm:w-1/2 lg:w-1/4 p-4" data-aos="fade-up">
+        <div class="bg-secondary rounded-lg shadow-lg p-6 text-center card-hover skill-card h-full flex flex-col justify-between">
+          <dotlottie-player src="https://lottie.host/df2a2d2a-d976-4c1b-a40b-e86b3ee15cf9/tmxD2OLpCK.json" background="transparent" speed="1" loop autoplay></dotlottie-player>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-primary mt-4">HTML</h3>
+            <p class="text-gray-400 mt-2">Penguasaan HTML untuk strukturisasi konten web yang semantik dan aksesibel, sebagai dasar dari pengembangan web front-end.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   
-<!-- Kritik dan Saran Form dan Google Map Embed -->
-<div class="container mx-auto px-6 py-8 bg-primary text-white flex flex-wrap">
-    <!-- Kritik dan Saran Form -->
-    <div class="w-full lg:w-1/2 p-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Kritik dan Saran</h2>
-        <!-- Display flash messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <div class="mb-4">
-              {% for category, message in messages %}
-                <div class="p-4 mb-4 text-sm text-{{ category }}-800 bg-{{ category }}-100 rounded-lg animate__animated animate__fadeInUp" role="alert">
-                  {{ message }}
+  
+    <!-- Kritik dan Saran Form dan Google Map Embed -->
+    <div class="container mx-auto px-6 py-8 bg-primary text-white flex flex-wrap">
+        <!-- Kritik dan Saran Form -->
+        <div class="w-full lg:w-1/2 p-4" data-aos="fade-up">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Kritik dan Saran</h2>
+            <!-- Display flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="mb-4">
+                  {% for category, message in messages %}
+                    <div class="p-4 mb-4 text-sm text-{{ category }}-800 bg-{{ category }}-100 rounded-lg" role="alert">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
                 </div>
-              {% endfor %}
+              {% endif %}
+            {% endwith %}
+            <form action="{{ url_for('welcome.submit_feedback') }}" method="POST" class="max-w-xl mx-auto">
+                <div class="mb-4">
+                    <label for="name" class="block text-white mb-2">Nama</label>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-white mb-2">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
+                </div>
+                <div class="mb-4">
+                    <label for="message" class="block text-white mb-2">Pesan</label>
+                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="px-6 py-2 rounded-lg bg-highlight text-white hover:bg-tertiary">Kirim</button>
+                </div>
+            </form>
+        </div>
+        <!-- Google Map Embed -->
+        <div class="w-full lg:w-1/2 p-4" data-aos="fade-up">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Lokasi Kami</h2>
+            <div class="bg-secondary rounded-lg shadow-lg p-6">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.4324548811553!2d106.8594491!3d-6.2951493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed80b84ac47d%3A0x640561dd89719c88!2sUniversitas%20Indraprasta%20PGRI%20(UNINDRA)%2C%20Kampus%20B!5e0!3m2!1sid!2sid!4v1691578221364!5m2!1sid!2sid" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
             </div>
-          {% endif %}
-        {% endwith %}
-        <form action="{{ url_for('welcome.submit_feedback') }}" method="POST" class="max-w-xl mx-auto">
-            <div class="mb-4">
-                <label for="name" class="block text-white mb-2">Nama</label>
-                <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
-            </div>
-            <div class="mb-4">
-                <label for="email" class="block text-white mb-2">Email</label>
-                <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required>
-            </div>
-            <div class="mb-4">
-                <label for="message" class="block text-white mb-2">Pesan</label>
-                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-primary" required></textarea>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="px-6 py-2 rounded-lg bg-highlight text-white hover:bg-tertiary">Kirim</button>
-            </div>
-        </form>
-    </div>
-    <!-- Google Map Embed -->
-    <div class="w-full lg:w-1/2 p-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Lokasi Kami</h2>
-        <div class="bg-secondary rounded-lg shadow-lg p-6">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.4324548811553!2d106.8594491!3d-6.2951493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed80b84ac47d%3A0x640561dd89719c88!2sUniversitas%20Indraprasta%20PGRI%20(UNINDRA)%2C%20Kampus%20B!5e0!3m2!1sid!2sid!4v1691578221364!5m2!1sid!2sid" 
-                width="100%" 
-                height="450" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy">
-            </iframe>
         </div>
     </div>
-</div>
-<!-- Kritik dan Saran Section -->
-<div class="container mx-auto px-6 py-8 bg-primary text-white">
-    <button id="toggleFeedback" class="px-6 py-2 rounded-lg bg-highlight text-white hover:bg-tertiary flex items-center justify-between">
-        <span>Lihat Kritik dan Saran</span>
-        <i id="toggleIcon" class="fas fa-chevron-down ml-2"></i>
-    </button>
-    <div class="border-b-2 border-highlight my-4"></div>
-    <div id="feedbackContent" class="feedback-content hidden mt-6">
-        <div class="scroll-container">
-            <div class="scroll-content">
+
+    <!-- Kritik dan Saran Section -->
+    <div class="container mx-auto px-6 py-8 bg-primary text-white">
+        <button id="toggleFeedback" class="px-6 py-2 rounded-lg bg-highlight text-white hover:bg-tertiary" data-aos="fade-up">Lihat Kritik dan Saran</button>
+        <div id="feedbackContent" class="hidden mt-6">
+            <div class="scroll-container">
                 {% for feedback in feedbacks %}
-                <div class="bg-secondary rounded-lg shadow-lg p-6 m-2 scroll-card card-hover">
-                    <h3 class="text-xl font-bold text-primary">{{ feedback.name }}</h3>
-                    <p class="text-gray-400 mt-2">{{ feedback.message }}</p>
-                    <p class="text-gray-500 text-sm mt-2">{{ feedback.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-                </div>
-                {% endfor %}
-                <!-- Duplicate feedbacks to create infinite scroll effect -->
-                {% for feedback in feedbacks %}
-                <div class="bg-secondary rounded-lg shadow-lg p-6 m-2 scroll-card card-hover">
+                <div class="bg-secondary rounded-lg shadow-lg p-6 m-2 scroll-card card-hover" data-aos="fade-up">
                     <h3 class="text-xl font-bold text-primary">{{ feedback.name }}</h3>
                     <p class="text-gray-400 mt-2">{{ feedback.message }}</p>
                     <p class="text-gray-500 text-sm mt-2">{{ feedback.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
@@ -290,41 +306,35 @@
             </div>
         </div>
     </div>
-</div>
-<!-- JavaScript untuk animasi kritik & saran -->
-<script>
-    var options = {
-        strings: ["Selamat Datang di Website To-Do List", "Organisasi tugas Anda menjadi lebih mudah dan efisien"],
-        typeSpeed: 50,
-        backSpeed: 50,
-        loop: true
-    };
 
-    var typed = new Typed("#typed-text", options);
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-6 mt-8" data-aos="fade-up">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 To-Do List App. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="#" class="text-highlight hover:text-gray-300 mx-2">Privacy Policy</a>
+                <a href="#" class="text-highlight hover:text-gray-300 mx-2">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const feedbackButton = document.getElementById('toggleFeedback');
-        const feedbackContent = document.getElementById('feedbackContent');
-        const toggleIcon = document.getElementById('toggleIcon');
+    <!-- JavaScript untuk efek pengetikan -->
+    <script>
+        var options = {
+            strings: ["Selamat Datang di Website To-Do List", "Organisasi tugas Anda menjadi lebih mudah dan efisien"],
+            typeSpeed: 50,
+            backSpeed: 50,
+            loop: true
+        };
 
-        feedbackButton.addEventListener('click', function () {
-            if (feedbackContent.classList.contains('hidden')) {
-                feedbackContent.style.height = '0';
-                feedbackContent.classList.remove('hidden');
-                setTimeout(() => {
-                    feedbackContent.style.height = feedbackContent.scrollHeight + 'px';
-                }, 10);
-            } else {
-                feedbackContent.style.height = feedbackContent.scrollHeight + 'px';
-                setTimeout(() => {
-                    feedbackContent.style.height = '0';
-                }, 10);
-                feedbackContent.addEventListener('transitionend', () => {
-                    feedbackContent.classList.add('hidden');
-                }, { once: true });
-            }
-            toggleIcon.classList.toggle('fa-chevron-down');
-            toggleIcon.classList.toggle('fa-chevron-up');
-        });
-    });
-</script>
+        var typed = new Typed("#typed-text", options);
+    </script>
+
+    <!-- AOS JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+</html>
